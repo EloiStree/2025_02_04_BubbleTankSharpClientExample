@@ -31,13 +31,27 @@ public class YourTankCode {
         in STRUCT_IntegerPlayerInGameInfo tankInfo, 
         in List<STRUCT_IntegerPlayerInGameInfo> players)
     {
+
+        m_frame++;
+        Print($"Update,{m_frame}: {tankInfo.m_playerIndex} / {players.Count}");
+        Print($"Player Angle:" + tankInfo.m_flatAngleXZ);
+
+        //Solution_0(tankAction, tankInfo, players);
+
+    }
+
+
+
+    private void Solution_0(I_TankAction tankAction, STRUCT_IntegerPlayerInGameInfo tankInfo, List<STRUCT_IntegerPlayerInGameInfo> players)
+    {
         if (players.Count == 0)
         {
             Console.WriteLine("No players");
             return;
         }
 
-       if (PlayersUtility.IsPlayerDeath(tankInfo, players)) {
+        if (PlayersUtility.IsPlayerDeath(tankInfo, players))
+        {
             Console.WriteLine("Player is dead");
             return;
         }
@@ -48,7 +62,7 @@ public class YourTankCode {
             if (player.m_playerIndex != tankInfo.m_playerIndex && player.m_playerTeamIndex != tankInfo.m_playerTeamIndex)
             {
                 m_target = new Vector3(player.m_positionX, player.m_positionY, player.m_positionZ);
-                Console.WriteLine("Target: " + player.m_playerIndex+" : "+m_target);
+                Console.WriteLine("Target: " + player.m_playerIndex + " : " + m_target);
                 break;
             }
         }
@@ -87,10 +101,7 @@ public class YourTankCode {
         Console.WriteLine("Direction: " + playerDirection);
         Thread.Sleep(200);
         tankAction.TurnLeft();
-
-
     }
-
 
     private void TestCommands(I_TankAction tankAction)
     {
